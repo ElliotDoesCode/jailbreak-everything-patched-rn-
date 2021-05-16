@@ -4,7 +4,7 @@ THIS IS A BUGGY UPDATE
 Made by IAteYourDog#4864
 I made this open source because why not
 
-Version 1.6
+Version 1.6.5
 DM me about any bugs you face while using this script
 
 Update info:
@@ -76,7 +76,7 @@ else
 
     for _,player in next, criminallist do
         if player.Team and player.Team == game:GetService("Teams").Criminal then
-            pcall(function()
+            local debugg, debugged = pcall(function()
                 game.Workspace.Camera.CameraSubject = player.Character.HumanoidRootPart
                 while wait() do
                     local ranx, rany, ranz = math.random(-3,3), math.random(-2,1), math.random(-3,3)
@@ -107,11 +107,12 @@ else
                     
                     arrest(player)
 
-                    if player.Character.InVehicle ~= nil then
+                    if player.Character:FindFirstChild("InVehicle") ~= nil then
                         eject(player)
                     end
                 end
             end)
+            if not debugg then print(debugged) end
         end
     end
 
