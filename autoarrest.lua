@@ -58,11 +58,13 @@ else
     end
 
     spawn(function()
-        while wait(5) do
+        while wait() do
             game:GetService("VirtualInputManager"):SendKeyEvent(true, "Two", false, game) wait() 
             game:GetService("VirtualInputManager"):SendKeyEvent(false, "Two", false, game) wait()
 
             equip()
+
+            wait(3)
         end
     end)
 
@@ -120,7 +122,8 @@ else
                 queuemethods('if not game:IsLoaded() then game.Loaded:Wait() end loadstring(game:HttpGet("https://pastebin.com/raw/y8s1yEac",true))()')
             end
         end)
-        while wait(5) do
+        wait(5)
+        while wait(3) do
             serverhop()
         end
     end)
