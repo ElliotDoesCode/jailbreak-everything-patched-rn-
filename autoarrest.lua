@@ -117,12 +117,7 @@ else
 
     spawn(function()
         local queuemethods = (syn and syn.queue_on_teleport) or queue_on_teleport
-        game:GetService("Players").LocalPlayer.OnTeleport:Connect(function(State)
-            if State == Enum.TeleportState.Started then
-                queuemethods('if not game:IsLoaded() then game.Loaded:Wait() end loadstring(game:HttpGet("https://pastebin.com/raw/y8s1yEac",true))()')
-            end
-        end)
-        wait(5)
+        queuemethods('if not game:IsLoaded() then game.Loaded:Wait() end loadstring(game:HttpGet("https://pastebin.com/raw/y8s1yEac",true))()')
         while wait(3) do
             serverhop()
         end
