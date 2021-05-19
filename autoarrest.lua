@@ -8,9 +8,7 @@ Version 1.6.5
 DM me about any bugs you face while using this script
 
 Update info:
-    -Remade my script
-    -Obfuscated teleport method because skids are already skidding
-    -No more chats cause I'm nice
+    -Unpatched, sorry for wait
 ]]
 
 if not game:IsLoaded() then
@@ -59,8 +57,14 @@ else
 
     spawn(function()
         while wait() do
-            game:GetService("VirtualInputManager"):SendKeyEvent(true, "Two", false, game) wait() 
-            game:GetService("VirtualInputManager"):SendKeyEvent(false, "Two", false, game) wait()
+            require(game:GetService("ReplicatedStorage").Game.ItemSystem.ItemSystem).Unequip()
+
+            wait()
+
+            for i = 1, 3 do
+                game:GetService("VirtualInputManager"):SendKeyEvent(true, "Two", false, game) wait() 
+                game:GetService("VirtualInputManager"):SendKeyEvent(false, "Two", false, game) wait()
+            end
 
             equip()
 
