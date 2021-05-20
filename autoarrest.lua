@@ -124,7 +124,8 @@ else
 
     spawn(function()
         local queuemethods = (syn and syn.queue_on_teleport) or queue_on_teleport
-        queuemethods('if not game:IsLoaded() then game.Loaded:Wait() end loadstring(loadstring(game:HttpGet("https://raw.githubusercontent.com/ElliotDoesCode/jailbreak/main/autoarrest.lua",true))()')
+        queuemethods([[if not game:IsLoaded() then game.Loaded:Wait() end 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ElliotDoesCode/jailbreak/main/autoarrest.lua",true))()]])
         while wait(3) do
             serverhop()
         end
