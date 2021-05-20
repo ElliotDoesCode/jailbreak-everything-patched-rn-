@@ -4,11 +4,11 @@ THIS IS A BUGGY UPDATE
 Made by IAteYourDog#4864
 I made this open source because why not
 
-Version 1.6.5
+Version 1.6.7
 DM me about any bugs you face while using this script
 
 Update info:
-    -Unpatched, sorry for wait
+    -Fixed only cuffs loading
 ]]
 
 if not game:IsLoaded() then
@@ -75,7 +75,9 @@ else
     local criminallist = game:GetService("Players"):GetChildren()
 
     table.sort(criminallist, function(new, old)
-        return (new.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude < (old.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude
+        pcall(function()
+            return (new.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude < (old.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude
+        end)
     end)
 
     for _,player in next, criminallist do
