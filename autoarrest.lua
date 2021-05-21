@@ -93,6 +93,7 @@ else
             game:GetService("VirtualInputManager"):SendKeyEvent(true, "Space", false, game)
             wait()
             game:GetService("VirtualInputManager"):SendKeyEvent(false, "Space", false, game)
+            local timestarted = tick()
             local debugg, debugged = pcall(function()
                 game.Workspace.Camera.CameraSubject = player.Character.HumanoidRootPart
                 while wait() do
@@ -111,7 +112,7 @@ else
 
                 
                 while wait() do
-                    if player.Team ~= game:GetService("Teams").Criminal then
+                    if player.Team ~= game:GetService("Teams").Criminal or tick() - timestarted > 60 then
                         --weldto:Destroy()
                         break
                     end
