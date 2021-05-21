@@ -89,6 +89,10 @@ else
 
     for _,player in next, criminallist do
         if player.Team and player.Team == game:GetService("Teams").Criminal then
+            if game:GetService("Players").LocalPlayer.Character.Humanoid.Sit == true then
+            game:GetService("VirtualInputManager"):SendKeyEvent(true, "Space", false, game)
+            wait()
+            game:GetService("VirtualInputManager"):SendKeyEvent(false, "Space", false, game)
             local debugg, debugged = pcall(function()
                 game.Workspace.Camera.CameraSubject = player.Character.HumanoidRootPart
                 while wait() do
