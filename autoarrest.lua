@@ -1,5 +1,5 @@
 --[[
-THIS IS A BUGGY UPDATE
+WARNING: POSSIBLE BAN WAVE COMING NEXT UPDATE
 
 Made by IAteYourDog#4864
 I made this open source because why not
@@ -8,14 +8,19 @@ Version 1.6.7
 DM me about any bugs you face while using this script
 
 Update info:
-    -Fixed cuffs
-    -Added jump when sitting
-    -Fixed serverhop once again
+    -Fixed only cuffs loading
 ]]
 
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
+
+game.StarterGui:SetCore("SendNotification", {
+    Title = "Warning",
+    Text = "Teleport method MIGHT be detected, expect a ban wave soon. Be safe!",
+    Duration = 15,
+    Button1 = "Okay idc"
+})
 
 local ServerNet = debug.getupvalue(require(game:GetService("ReplicatedStorage").Module.AlexChassis).SetEvent, 1)
 local arrest = function(plr) for _,v in pairs(require(game:GetService("ReplicatedStorage").Module.UI).CircleAction.Specs) do if v.Name == "Arrest" and v.Part ~= nil and (v.Part.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 30 then v:Callback(v, true) end end end
