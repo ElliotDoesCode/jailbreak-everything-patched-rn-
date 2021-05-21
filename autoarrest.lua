@@ -53,7 +53,16 @@ end
 wait(2)
 
 if game:GetService("Players").LocalPlayer.Team ~= game:GetService("Teams").Police then
-    game:GetService("Players").LocalPlayer:kick("Script patched or you joined an old server")
+    game:GetService("Players").LocalPlayer:kick("Script patched or you joined an old server. If the next server fails, please wait for the script to be updated")
+    wait(5)
+    spawn(function()
+        local queuemethods = (syn and syn.queue_on_teleport) or queue_on_teleport
+        queuemethods([[if not game:IsLoaded() then game.Loaded:Wait() end 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ElliotDoesCode/jailbreak/main/autoarrest.lua",true))()]])
+        while wait(3) do
+            serverhop()
+        end
+    end)
 else
     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Made by IAteYourDog (4,8,6,4)","All")
 
