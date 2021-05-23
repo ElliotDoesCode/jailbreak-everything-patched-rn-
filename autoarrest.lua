@@ -64,91 +64,92 @@ if game:GetService("Players").LocalPlayer.Team ~= game:GetService("Teams").Polic
         end
     end)
 else
-    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Made by IAteYourDog (4,8,6,4)","All")
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Made by IAteYourDog (4,8,6,4)","All")
 
-    for _,v in pairs(getgc(true)) do 
-        if typeof(v) == "table" then if rawget(v,"Name") and rawget(v,"Frame") and v.Name == "Handcuffs" then function equip() pcall(function() game:GetService("VirtualInputManager"):SendKeyEvent(true, "Two", false, game) wait() game:GetService("VirtualInputManager"):SendKeyEvent(false, "Two", false, game) require(game:GetService("ReplicatedStorage").Game.ItemSystem.ItemSystem).Equip(game.Players.LocalPlayer, v) end) end end
-        if rawget(v, 'Ragdoll') then v.Ragdoll = function(...) return wait(9e9) end end end
-    end
+        for _,v in pairs(getgc(true)) do 
+            if typeof(v) == "table" then if rawget(v,"Name") and rawget(v,"Frame") and v.Name == "Handcuffs" then function equip() pcall(function() game:GetService("VirtualInputManager"):SendKeyEvent(true, "Two", false, game) wait() game:GetService("VirtualInputManager"):SendKeyEvent(false, "Two", false, game) require(game:GetService("ReplicatedStorage").Game.ItemSystem.ItemSystem).Equip(game.Players.LocalPlayer, v) end) end end
+            if rawget(v, 'Ragdoll') then v.Ragdoll = function(...) return wait(9e9) end end end
+        end
 
-    spawn(function()
-        while wait() do
-            require(game:GetService("ReplicatedStorage").Game.ItemSystem.ItemSystem).Unequip()
+        spawn(function()
+            while wait() do
+                require(game:GetService("ReplicatedStorage").Game.ItemSystem.ItemSystem).Unequip()
 
-            wait()
+                wait()
 
-            for i = 1, 3 do
-                game:GetService("VirtualInputManager"):SendKeyEvent(true, "Two", false, game) wait() 
-                game:GetService("VirtualInputManager"):SendKeyEvent(false, "Two", false, game) wait()
+                for i = 1, 3 do
+                    game:GetService("VirtualInputManager"):SendKeyEvent(true, "Two", false, game) wait() 
+                    game:GetService("VirtualInputManager"):SendKeyEvent(false, "Two", false, game) wait()
+                end
+
+                equip()
+
+                wait(3)
             end
-
-            equip()
-
-            wait(3)
-        end
-    end)
-
-    local criminallist = game:GetService("Players"):GetChildren()
-
-    table.sort(criminallist, function(new, old)
-        pcall(function()
-            return (new.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude < (old.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude
         end)
-    end)
 
-    for _,player in next, criminallist do
-        if player.Team and player.Team == game:GetService("Teams").Criminal then
-            if game:GetService("Players").LocalPlayer.Character.Humanoid.Sit == true then
-            game:GetService("VirtualInputManager"):SendKeyEvent(true, "Space", false, game)
-            wait()
-            game:GetService("VirtualInputManager"):SendKeyEvent(false, "Space", false, game)
-            local timestarted = tick()
-            local debugg, debugged = pcall(function()
-                game.Workspace.Camera.CameraSubject = player.Character.HumanoidRootPart
-                while wait() do
-                    local ranx, rany, ranz = math.random(-3,3), math.random(-2,1), math.random(-3,3)
-                    teleport(player.Character.HumanoidRootPart.CFrame + Vector3.new(ranx, rany, ranz))
-                    if (player.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 30 then
-                        break
-                    end
-                end
-                teleport(player.Character.HumanoidRootPart.CFrame + Vector3.new(3,0,0))
-                
-                -- local weldto = Instance.new("Weld")
-                -- weldto.Parent = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
-                -- weldto.Part0 = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
-                -- weldto.Part1 = player.Character.HumanoidRootPart
+        local criminallist = game:GetService("Players"):GetChildren()
 
-                
-                while wait() do
-                    if player.Team ~= game:GetService("Teams").Criminal or tick() - timestarted > 60 then
-                        --weldto:Destroy()
-                        break
-                    end
-                    local playerinmuseum = false
-                    for _,mus in pairs(game:GetService("Workspace").Museum.Spawns:GetChildren()) do if #GetTouchingParts(mus) > 2 then playerinmuseum = true end end
-                    if playerinmuseum == true then break end
-
-                    local ranx, rany, ranz = math.random(-3,3), math.random(-2,1), math.random(-3,3)
-                    teleport(player.Character.HumanoidRootPart.CFrame + Vector3.new(ranx, rany, ranz))
-                    
-                    arrest(player)
-
-                    if player.Character:FindFirstChild("InVehicle") ~= nil then
-                        eject(player)
-                    end
-                end
+        table.sort(criminallist, function(new, old)
+            pcall(function()
+                return (new.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude < (old.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude
             end)
-            if not debugg then print(debugged) end
-        end
-    end
+        end)
 
-    spawn(function()
-        local queuemethods = (syn and syn.queue_on_teleport) or queue_on_teleport
-        queuemethods([[if not game:IsLoaded() then game.Loaded:Wait() end 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ElliotDoesCode/jailbreak/main/autoarrest.lua",true))()]])
-        while wait(3) do
-            serverhop()
+        for _,player in next, criminallist do
+            if player.Team and player.Team == game:GetService("Teams").Criminal then
+                if game:GetService("Players").LocalPlayer.Character.Humanoid.Sit == true then
+                game:GetService("VirtualInputManager"):SendKeyEvent(true, "Space", false, game)
+                wait()
+                game:GetService("VirtualInputManager"):SendKeyEvent(false, "Space", false, game)
+                local timestarted = tick()
+                local debugg, debugged = pcall(function()
+                    game.Workspace.Camera.CameraSubject = player.Character.HumanoidRootPart
+                    while wait() do
+                        local ranx, rany, ranz = math.random(-3,3), math.random(-2,1), math.random(-3,3)
+                        teleport(player.Character.HumanoidRootPart.CFrame + Vector3.new(ranx, rany, ranz))
+                        if (player.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 30 then
+                            break
+                        end
+                    end
+                    teleport(player.Character.HumanoidRootPart.CFrame + Vector3.new(3,0,0))
+                    
+                    -- local weldto = Instance.new("Weld")
+                    -- weldto.Parent = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+                    -- weldto.Part0 = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+                    -- weldto.Part1 = player.Character.HumanoidRootPart
+
+                    
+                    while wait() do
+                        if player.Team ~= game:GetService("Teams").Criminal or tick() - timestarted > 60 then
+                            --weldto:Destroy()
+                            break
+                        end
+                        local playerinmuseum = false
+                        for _,mus in pairs(game:GetService("Workspace").Museum.Spawns:GetChildren()) do if #GetTouchingParts(mus) > 2 then playerinmuseum = true end end
+                        if playerinmuseum == true then break end
+
+                        local ranx, rany, ranz = math.random(-3,3), math.random(-2,1), math.random(-3,3)
+                        teleport(player.Character.HumanoidRootPart.CFrame + Vector3.new(ranx, rany, ranz))
+                        
+                        arrest(player)
+
+                        if player.Character:FindFirstChild("InVehicle") ~= nil then
+                            eject(player)
+                        end
+                    end
+                end)
+                if not debugg then print(debugged) end
+            end
         end
-    end)
+
+        spawn(function()
+            local queuemethods = (syn and syn.queue_on_teleport) or queue_on_teleport
+            queuemethods([[if not game:IsLoaded() then game.Loaded:Wait() end 
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/ElliotDoesCode/jailbreak/main/autoarrest.lua",true))()]])
+            while wait(3) do
+                serverhop()
+            end
+        end)
+    end
 end
