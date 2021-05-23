@@ -4,11 +4,11 @@ WARNING: POSSIBLE BAN WAVE COMING NEXT UPDATE
 Made by IAteYourDog#4864
 I made this open source because why not
 
-Version 1.6.8
+Version 1.6.9
 DM me about any bugs you face while using this script
 
 Update info:
-    -Up to date with latest hashes
+    -Up to date with latest hashes once again
 ]]
 
 if not game:IsLoaded() then
@@ -25,7 +25,7 @@ game.StarterGui:SetCore("SendNotification", {
 local ServerNet = debug.getupvalue(require(game:GetService("ReplicatedStorage").Module.AlexChassis).SetEvent, 1)
 local arrest = function(plr) for _,v in pairs(require(game:GetService("ReplicatedStorage").Module.UI).CircleAction.Specs) do if v.Name == "Arrest" and v.Part ~= nil and (v.Part.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 30 then v:Callback(v, true) end end end
 local eject = function(plr) for _,v in pairs(require(game:GetService("ReplicatedStorage").Module.UI).CircleAction.Specs) do if v.Name == "Eject" and v.Part ~= nil and (v.Part.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 50 then v:Callback(v, true) end end end
-local joincops = function() ServerNet:FireServer("ee5535bc","Police") end
+local joincops = function() ServerNet:FireServer("e3e92be7","Police") end
 local GetTouchingParts = function(part) local connection = part.Touched:Connect(function() end) local results = part:GetTouchingParts() connection:Disconnect() return results end
 
 --Teleport method (obfuscated because of you skids)
