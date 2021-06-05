@@ -187,6 +187,7 @@ local doplayers = coroutine.create(function()
     local currentchar = player.Character
     player.Character:BreakJoints()
 
+    player.ChildRemoved:Wait()
     player.ChildAdded:Wait()
     wait(1)
 
@@ -229,6 +230,7 @@ local doplayers = coroutine.create(function()
                 end
             end)
             if not a then print(b) end
+            wait()
         end
     end
 
