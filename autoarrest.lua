@@ -4,6 +4,8 @@
     v2
 
     Latest update:
+        - Fixed no tools by making you die on team switch (helps ban detection as well)
+    Past updates:
         - Complete rewrite
         - Very low ban risk (still use alt though, report if ban risk increases)
         * please report bugs to me
@@ -180,9 +182,15 @@ local doplayers = coroutine.create(function()
 
     print("Tried")
 
+    local currentchar = player.Character
+    player.Character:BreakJoints()
+
+    player.ChildAdded:Wait()
+
+
     if player.Team == game:GetService("Teams").Police then
         game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Made by IAteYourDog (4,8,6,4)","All")
-        
+
         while tick() - start < 120 or done == true do
             local a,b = pcall(function()
                 local v = nearplayer()
