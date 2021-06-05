@@ -188,6 +188,7 @@ local doplayers = coroutine.create(function()
     player.Character:BreakJoints()
 
     player.ChildAdded:Wait()
+    wait(1)
 
 
     if player.Team == game:GetService("Teams").Police then
