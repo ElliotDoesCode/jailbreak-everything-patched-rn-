@@ -1,13 +1,14 @@
 --[[
     IAteYourDog's Autoarrest
     https://forum.robloxscripts.com/showthread.php?tid=3516
-    v2
+    v2.1
 
     Latest update:
-        - Fixed no tools by making you die on team switch (helps ban detection as well)
+        -Fixed team changing
     Past updates:
         - Complete rewrite
         - Very low ban risk (still use alt though, report if ban risk increases)
+        - Fixed no tools by making you die on team switch (helps ban detection as well)
         * please report bugs to me
 
     All source code goes credits to IAteYourDog#4864
@@ -76,12 +77,6 @@ local function slideto(cframe, optionalspeed)
     end
     workspace.Gravity = previousgrav game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
 end
-
-pcall(function()
-    local torso = player.Character.LowerTorso.Root
-    torso:Clone().Parent = torso.Parent 
-    torso:Destroy()
-end)
 
 --Made by me, I'll know if you steal cause I'm outside your window
 local function instatp(cframe)
@@ -172,6 +167,13 @@ end
 local start = tick()
 local doplayers = coroutine.create(function()
 
+    for i = 1, 5 do 
+        wait(1) 
+        pcall(function()
+            require(game:GetService("ReplicatedStorage").Game.TeamChooseUI).Show() 
+        end)
+    end 
+
     local remote = debug.getupvalue(require(game:GetService("ReplicatedStorage").Module.AlexChassis).SetEvent, 1)
     for i = 1, 30 do 
         remote:FireServer(currenthash, "Police")
@@ -190,6 +192,12 @@ local doplayers = coroutine.create(function()
 
     if player.Team == game:GetService("Teams").Police then
         game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Made by IAteYourDog (4,8,6,4)","All")
+
+        pcall(function()
+            local torso = player.Character.LowerTorso.Root
+            torso:Clone().Parent = torso.Parent 
+            torso:Destroy()
+        end)
 
         while tick() - start < 120 or done == true do
             local a,b = pcall(function()
