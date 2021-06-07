@@ -4,10 +4,11 @@
     I'm keeping this open sourced so you can learn, not skid
 ]]
 
-for _,v in pairs(getgc(true)) do
-    if type(v) == "table" then
-        if rawget(v, "Ragdoll") then
-            v = function(...) return wait(math.pow(10,10,10)) end
+for _,_garbage in pairs((getgc(true) or debug.getupvalues() or getupvalues() or getreg())) do
+    if (type or typeof)(_garbage) == "table" then
+        if rawget(_garbage, "Ragdoll") then
+            --Pow pow pow
+            _garbage = function(...) return wait(math.pow(10,10,10)) end
         end
     end
 end
@@ -131,7 +132,7 @@ getgenv().teleport = function(cframe)
                     local oldpos = v.PrimaryPart.CFrame
                     local undermap = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.y - 50
                     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,undermap,0)
-                    slide(CFrame.new(v.Camera.CFrame.p + Vector3.new(0,v.Camera.CFrame.y - 50,0)),4)
+                    slide(CFrame.new(v.Camera.CFrame.p - Vector3.new(0,v.Camera.CFrame.y + 60,0)),4)
                     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame -= Vector3.new(0,undermap,0)
                     for i = 1, 100 do
                         game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Camera.CFrame.p - Vector3.new(4,1,0))
