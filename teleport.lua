@@ -137,18 +137,11 @@ getgenv().teleport = function(cframe)
             wait(1)
             game:GetService("VirtualInputManager"):SendKeyEvent(false, "W", false, game)
 
-            game:GetService("ContextActionService"):BindAction("DisableInput", 
-            function() return Enum.ContextActionResult.Sink end,
-            false,
-            unpack(Enum.PlayerActions:GetEnumItems()))
-
             for _,v in pairs(vehicles) do
                 if v.PrimaryPart ~= nil and v.Seat.Player.Value == false and v.Name == "Camaro" then
-                    local oldpos = v.PrimaryPart.CFrame
-                    local undermap = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.y - 50
-                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,undermap,0)
-                    slide(CFrame.new(v.Camera.CFrame.p - Vector3.new(0,v.Camera.CFrame.y + 60,0)),4)
-                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame -= Vector3.new(0,undermap,0)
+                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame -= Vector3.new(0,150,0)
+                    slide(CFrame.new(Vector3.new(v.Camera.Position.x,-150,v.Camera.Position.z)),4)
+                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,v.Camera.CFrame.y + 150,0)
                     for i = 1, 100 do
                         game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Camera.CFrame.p - Vector3.new(4,1,0))
 
@@ -167,6 +160,10 @@ getgenv().teleport = function(cframe)
                     end
                     wait(0.3)
                     if tostring(v.Seat.PlayerName.Value) == game:GetService("Players").LocalPlayer.Name then
+                        game:GetService("ContextActionService"):BindAction("DisableInput", 
+                        function() return Enum.ContextActionResult.Sink end,
+                        false,
+                        unpack(Enum.PlayerActions:GetEnumItems()))
                         slidevehicle(v, cframe)
                         break
                     end
