@@ -1,9 +1,23 @@
 --[[
     Made by IAteYourDog#4864
     I don't give permision to re-release or re-use
-    I'm keeping this open sourced so you can learn, not skid
+    Please use credits if using the teleport method in your hub
+
+    Report bugs and skids to me
+    v1.1
 ]]
 
+if not game:IsLoaded() then
+    game.Loaded:wait()
+end
+
+
+--[[
+    Documentation:
+    teleport(cframe)
+    slide( cframe, speed (optional) )
+    * Both can be called from getgenv as well
+]]
 for _,_garbage in pairs((getgc(true) or debug.getupvalues() or getupvalues() or getreg())) do
     if (type or typeof)(_garbage) == "table" then
         if rawget(_garbage, "Ragdoll") then
@@ -16,13 +30,13 @@ end
 getgenv().slide = function(cframe, optionalspeed)
     local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
     local distance, distancel = cframe.p - root.Position, (cframe - cframe.p) + root.Position
-    local previousgrav = workspace.Gravity workspace.Gravity = 0 mag = 8 if tonumber(optionalspeed) then mag = optionalspeed end
+    mag = 8 if tonumber(optionalspeed) then mag = optionalspeed end
     for i = 0, distance.magnitude, mag do
         if game:GetService("Players").LocalPlayer.Character.Humanoid.Sit == true then game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true end 
         root.CFrame = distancel + distance.Unit * i
         root.Velocity,root.RotVelocity = Vector3.new(),Vector3.new() wait()
     end
-    workspace.Gravity = previousgrav game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
+    game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
 end
 
 local function slidevehicle(vehicle, cframe)
@@ -37,7 +51,6 @@ local function slidevehicle(vehicle, cframe)
             wait(0.3)
 
             cframe = cframe + Vector3.new(0, vehicle.PrimaryPart.Position.y, 0)
-            --game:GetService("Workspace").Gravity = 0
 
             local root, mag = vehicle.PrimaryPart, 14.5
             local distance, distancel = cframe.p - root.Position, (cframe - cframe.p) + root.Position
@@ -58,7 +71,6 @@ local function slidevehicle(vehicle, cframe)
                 end
             end
 
-            --game:GetService("Workspace").Gravity = 196.2
 
             for i = 1, 4 do
                 vehicle:SetPrimaryPartCFrame(origin)
@@ -87,7 +99,6 @@ local function slidevehicle(vehicle, cframe)
         end
     end)
     if not worked then
-        --game:GetService("Workspace").Gravity = 196.2
         game:GetService("ContextActionService"):UnbindAction("DisableInput")
 
         return false    
