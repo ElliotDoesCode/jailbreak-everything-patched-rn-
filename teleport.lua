@@ -52,7 +52,7 @@ local function slidevehicle(vehicle, cframe)
 
             cframe = cframe + Vector3.new(0, vehicle.PrimaryPart.Position.y, 0)
 
-            local root, mag = vehicle.PrimaryPart, 14.5
+            local root, mag = vehicle.PrimaryPart, 14
             local distance, distancel = cframe.p - root.Position, (cframe - cframe.p) + root.Position
 
             for i = 0, distance.magnitude, mag do
