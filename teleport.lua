@@ -35,6 +35,8 @@ getgenv().slide = function(cframe, optionalspeed)
         if game:GetService("Players").LocalPlayer.Character.Humanoid.Sit == true then game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true end 
         root.CFrame = distancel + distance.Unit * i
         root.Velocity,root.RotVelocity = Vector3.new(),Vector3.new() wait()
+        local currentpos = root.Position - Vector3.new(0, root.Position.y, 0) wait() local magafter = ((root.Position - Vector3.new(0,root.Position.y, 0)) - currentpos).magnitude
+        if magafter > 500 then wait(3) slide(cframe, optionalspeed) return end
     end
     game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
 end
