@@ -144,7 +144,7 @@ getgenv().teleport = function(cframe)
                     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame -= Vector3.new(0,150,0)
                     slide(CFrame.new(Vector3.new(v.Camera.Position.x,-150,v.Camera.Position.z)),4)
                     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,v.Camera.CFrame.y + 150,0)
-                    for i = 1, 100 do
+                    for i = 1, 200 do
                         game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Camera.CFrame.p - Vector3.new(4,1,0))
 
                         for _,d in pairs(require(game:GetService("ReplicatedStorage").Module.UI).CircleAction.Specs) do
@@ -180,3 +180,5 @@ getgenv().teleport = function(cframe)
     end)
     print(debug2)
 end
+
+teleport(CFrame.new(0,10,0))
