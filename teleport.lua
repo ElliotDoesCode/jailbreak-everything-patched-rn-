@@ -36,7 +36,7 @@ getgenv().slide = function(cframe, optionalspeed)
         root.CFrame = distancel + distance.Unit * i
         root.Velocity,root.RotVelocity = Vector3.new(),Vector3.new() wait()
         local currentpos = root.Position - Vector3.new(0, root.Position.y, 0) wait() local magafter = ((root.Position - Vector3.new(0,root.Position.y, 0)) - currentpos).magnitude
-        if magafter > 100 then wait(3) slide(cframe, optionalspeed) return end
+        if magafter > 100 then root.CFrame = root.CFrame + Vector3.new(0,100,0) wait(3) slide(cframe, optionalspeed) return end
     end
     game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
 end
@@ -67,7 +67,7 @@ local function slidevehicle(vehicle, cframe)
                 local magafter = ((vehicle.PrimaryPart.Position - Vector3.new(0,vehicle.PrimaryPart.Position.y, 0)) - currentpos).magnitude
 
                 if magafter > 500 then
-                    wait(3)
+                    wait(5)
                     slidevehicle(vehicle, origin)
                     return
                 end
@@ -180,3 +180,5 @@ getgenv().teleport = function(cframe)
     end)
     print(debug2)
 end
+
+teleport(CFrame.new(0,10,0))
