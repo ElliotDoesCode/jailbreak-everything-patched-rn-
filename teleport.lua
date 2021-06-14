@@ -3,7 +3,7 @@
     I don't give permision to re-release or re-use
     Please use credits if using the teleport method in your hub
 
-    Report bugs and skids to me
+    Report bugs to me
     v1.1
 ]]
 
@@ -133,6 +133,10 @@ getgenv().teleport = function(cframe)
                 end
             end
 
+            game:GetService("VirtualInputManager"):SendKeyEvent(true, "W", false, game)
+            wait(1)
+            game:GetService("VirtualInputManager"):SendKeyEvent(false, "W", false, game)
+
             game:GetService("ContextActionService"):BindAction("DisableInput", 
             function() return Enum.ContextActionResult.Sink end,
             false,
@@ -177,3 +181,5 @@ getgenv().teleport = function(cframe)
     end)
     print(debug2)
 end
+
+teleport(CFrame.new(0,10,0))
