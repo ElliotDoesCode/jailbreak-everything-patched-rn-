@@ -122,7 +122,7 @@ getgenv().teleport = function(cframe)
                     end
                 end)
             for _,v in pairs(vehicles) do
-                if v.PrimaryPart ~= nil and v.Seat.Player.Value == true and tostring(v.Seat.PlayerName.Value) == game:GetService("Players").LocalPlayer.Name then
+                if v.PrimaryPart ~= nil and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == true and tostring(v.Seat.PlayerName.Value) == game:GetService("Players").LocalPlayer.Name then
                     if v.Name == "Camaro" then
                         slidevehicle(v, cframe)
                         return
@@ -180,3 +180,5 @@ getgenv().teleport = function(cframe)
     end)
     print(debug2)
 end
+
+teleport(CFrame.new(0,10,0))
