@@ -140,7 +140,7 @@ getgenv().teleport = function(cframe)
             game:GetService("VirtualInputManager"):SendKeyEvent(false, "W", false, game)
 
             for _,v in pairs(vehicles) do
-                if v.PrimaryPart ~= nil and v.Seat.Player.Value == false and v.Name == "Camaro" then
+                if v.PrimaryPart ~= nil and v.Seat.Player.Value == false and v.Name == "Camaro" and v:FindFirstChild("Camera") then
                     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame -= Vector3.new(0,150,0)
                     slide(CFrame.new(Vector3.new(v.Camera.Position.x,-150,v.Camera.Position.z)),4)
                     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame += Vector3.new(0,v.Camera.CFrame.y + 150,0)
