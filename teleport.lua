@@ -27,18 +27,44 @@ for _,_garbage in pairs((getgc(true) or debug.getupvalues() or getupvalues() or 
     end
 end
 
-getgenv().slide = function(cframe, optionalspeed)
-    local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
-    local distance, distancel = cframe.p - root.Position, (cframe - cframe.p) + root.Position
-    mag = 8 if tonumber(optionalspeed) then mag = optionalspeed end
-    for i = 0, distance.magnitude, mag do
-        if game:GetService("Players").LocalPlayer.Character.Humanoid.Sit == true then game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true end 
-        root.CFrame = distancel + distance.Unit * i
-        root.Velocity,root.RotVelocity = Vector3.new(1,0,1),Vector3.new(1,0,1)
-        local currentpos = root.Position - Vector3.new(0, root.Position.y, 0) wait() local magafter = ((root.Position - Vector3.new(0,root.Position.y, 0)) - currentpos).magnitude
-        if magafter > 100 then root.CFrame = root.CFrame + Vector3.new(0,100,0) wait(3) slide(cframe, optionalspeed) return end
-    end
-    --game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
+-- getgenv().slide = function(cframe, optionalspeed)
+--     local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+--     local distance, distancel = cframe.p - root.Position, (cframe - cframe.p) + root.Position
+--     mag = 8 if tonumber(optionalspeed) then mag = optionalspeed end
+--     for i = 0, distance.magnitude, mag do
+--         if game:GetService("Players").LocalPlayer.Character.Humanoid.Sit == true then game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true end 
+--         root.CFrame = distancel + distance.Unit * i
+--         root.Velocity,root.RotVelocity = Vector3.new(1,0,1),Vector3.new(1,0,1)
+--         local currentpos = root.Position - Vector3.new(0, root.Position.y, 0) wait() local magafter = ((root.Position - Vector3.new(0,root.Position.y, 0)) - currentpos).magnitude
+--         if magafter > 100 then root.CFrame = root.CFrame + Vector3.new(0,100,0) wait(3) slide(cframe, optionalspeed) return end
+--     end
+--     --game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
+-- end
+
+getgenv().slide = function(pos)
+    game:GetService("Workspace").Gravity = 0
+    pcall(function()
+        local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+        local humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid
+        for i = 0,(pos.p - root.Position).magnitude, 1 do
+            root.AssemblyLinearVelocity, root.CFrame = root.CFrame.LookVector * 100, CFrame.new(root.Position, pos.p)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
+            for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+                pcall(function()
+                    v.CanCollide = false
+                end)
+            end
+            if (pos.p - root.Position).magnitude < 3 then
+                break
+            end
+            game:GetService("RunService").Stepped:wait()
+        end
+        for i = 1, 10 do
+            root.AssemblyLinearVelocity, root.Velocity = Vector3.new(), Vector3.new()
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
+        end
+    end)
+    game:GetService("Workspace").Gravity = 196.19999694824
 end
 
 local function slidevehicle(vehicle, cframe)
