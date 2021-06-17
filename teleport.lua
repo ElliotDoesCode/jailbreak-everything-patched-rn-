@@ -62,6 +62,11 @@ getgenv().slide = function(pos)
         for i = 1, 10 do
             root.AssemblyLinearVelocity, root.Velocity = Vector3.new(), Vector3.new()
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
+            for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+                pcall(function()
+                    v.CanCollide = true
+                end)
+            end
         end
     end)
     game:GetService("Workspace").Gravity = 196.19999694824
@@ -206,4 +211,3 @@ getgenv().teleport = function(cframe)
     end)
     print(debug2)
 end
-
