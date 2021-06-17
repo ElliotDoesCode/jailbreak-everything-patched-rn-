@@ -49,7 +49,7 @@ getgenv().slide = function(pos)
         for i = 0,(pos.p - root.Position).magnitude, 1 do
             root.AssemblyLinearVelocity, root.CFrame = root.CFrame.LookVector * 100, CFrame.new(root.Position, pos.p)
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
-            humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
             for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
                 pcall(function()
                     v.CanCollide = false
@@ -63,6 +63,7 @@ getgenv().slide = function(pos)
         for i = 1, 10 do
             root.AssemblyLinearVelocity, root.Velocity = Vector3.new(), Vector3.new()
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false)
             root.CFrame = pos
             for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
                 pcall(function()
