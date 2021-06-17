@@ -46,9 +46,6 @@ getgenv().slide = function(pos)
     pcall(function()
         local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
         local humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid
-        game:GetService("VirtualInputManager"):SendKeyEvent(true, "Space", false, game)
-        wait()
-        game:GetService("VirtualInputManager"):SendKeyEvent(false, "Space", false, game)
         for i = 0,(pos.p - root.Position).magnitude, 1 do
             root.AssemblyLinearVelocity, root.CFrame = root.CFrame.LookVector * 100, CFrame.new(root.Position, pos.p)
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
@@ -59,6 +56,9 @@ getgenv().slide = function(pos)
             end
             if (pos.p - root.Position).magnitude < 3 then
                 break
+            end
+            if i == 5 then
+                game:GetService("VirtualInputManager"):SendKeyEvent(true, "Space", false, game) wait() game:GetService("VirtualInputManager"):SendKeyEvent(false, "Space", false, game)
             end
             game:GetService("RunService").Stepped:wait()
         end
