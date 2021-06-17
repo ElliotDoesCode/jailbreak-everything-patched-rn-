@@ -207,4 +207,3 @@ getgenv().teleport = function(cframe)
     print(debug2)
 end
 
-teleport(CFrame.new(0,10,0))
