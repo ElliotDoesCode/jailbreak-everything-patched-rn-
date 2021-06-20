@@ -81,7 +81,7 @@ getgenv().slide = function(cframe,...)
     local root = player.Character.HumanoidRootPart
     local options = {...}
     local move = Instance.new("BodyVelocity", root)
-    cframe = cframe + Vector3.new(0,10,0)
+    cframe = cframe + Vector3.new(0,1,0)
     
     for i = 0,(cframe.p - root.Position).magnitude, 1 do
 
@@ -251,5 +251,3 @@ getgenv().teleport = function(cframe)
     end)
     print(debug2)
 end
-
-teleport(CFrame.new(0,10,0))
