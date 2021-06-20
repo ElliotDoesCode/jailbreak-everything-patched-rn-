@@ -41,39 +41,75 @@ end
 --     --game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
 -- end
 
-getgenv().slide = function(pos)
-    game:GetService("Workspace").Gravity = 0
-    pcall(function()
-        local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
-        local humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid
-        for i = 0,(pos.p - root.Position).magnitude, 1 do
-            root.AssemblyLinearVelocity, root.CFrame = root.CFrame.LookVector * 100, CFrame.new(root.Position, pos.p)
-            humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
-            for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
-                pcall(function()
-                    v.CanCollide = false
-                end)
-            end
-            if (pos.p - root.Position).magnitude < 3 then
-                break
-            end
-            if i == 5 then
-                game:GetService("VirtualInputManager"):SendKeyEvent(true, "Space", false, game) wait() game:GetService("VirtualInputManager"):SendKeyEvent(false, "Space", false, game)
-            end
-            game:GetService("RunService").Stepped:wait()
+-- getgenv().slide = function(pos)
+--     game:GetService("Workspace").Gravity = 0
+--     pcall(function()
+--         local root = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+--         local humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid
+--         for i = 0,(pos.p - root.Position).magnitude, 1 do
+--             root.AssemblyLinearVelocity, root.CFrame = root.CFrame.LookVector * 100, CFrame.new(root.Position, pos.p)
+--             humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
+--             for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+--                 pcall(function()
+--                     v.CanCollide = false
+--                 end)
+--             end
+--             if (pos.p - root.Position).magnitude < 3 then
+--                 break
+--             end
+--             if i == 5 then
+--                 game:GetService("VirtualInputManager"):SendKeyEvent(true, "Space", false, game) wait() game:GetService("VirtualInputManager"):SendKeyEvent(false, "Space", false, game)
+--             end
+--             game:GetService("RunService").Stepped:wait()
+--         end
+--         for i = 1, 10 do
+--             root.AssemblyLinearVelocity, root.Velocity = Vector3.new(), Vector3.new()
+--             humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
+--             root.CFrame = pos
+--             for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+--                 pcall(function()
+--                     v.CanCollide = true
+--                 end)
+--             end
+--         end
+--     end)
+--     game:GetService("Workspace").Gravity = 196.19999694824
+-- end
+
+getgenv().slide = function(cframe,...)
+    local player = game:GetService("Players").LocalPlayer
+    local root = player.Character.HumanoidRootPart
+    local options = {...}
+    local move = Instance.new("BodyVelocity", root)
+    cframe = cframe + Vector3.new(0,10,0)
+    
+    for i = 0,(cframe.p - root.Position).magnitude, 1 do
+
+        move.MaxForce = Vector3.new(9e9,9e9,9e9)
+        move.P = 3000
+        move.Velocity = (cframe.p - root.Position).unit * 140
+        
+        for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+            pcall(function()
+                v.CanCollide = false
+            end)
         end
-        for i = 1, 10 do
-            root.AssemblyLinearVelocity, root.Velocity = Vector3.new(), Vector3.new()
-            humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false)
-            root.CFrame = pos
-            for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
-                pcall(function()
-                    v.CanCollide = true
-                end)
+        
+        if (cframe.p - root.Position).magnitude < 3 then
+            move:Destroy()
+            for i2 = 1, 10 do
+                root.CFrame = cframe 
+                wait()
             end
+            break
         end
-    end)
-    game:GetService("Workspace").Gravity = 196.19999694824
+        
+        game:GetService("RunService").Stepped:wait()
+    end
+    
+    if options[1] ~= nil then
+        root.Parent.Humanoid:SetStateEnabled(10, true)
+    end
 end
 
 local function slidevehicle(vehicle, cframe)
@@ -215,3 +251,5 @@ getgenv().teleport = function(cframe)
     end)
     print(debug2)
 end
+
+teleport(CFrame.new(0,10,0))
