@@ -187,7 +187,7 @@ local function slidevehicle(vehicle, cframe)
     end
 end
 
-getgenv().teleport = function(cframe)
+getgenv().teleport = function(cframe, teleportornot)
     local debug1, debug2 = pcall(function()
         if (cframe.p - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 200 then
             local vehicles = game:GetService("Workspace").Vehicles:GetChildren()
@@ -204,7 +204,9 @@ getgenv().teleport = function(cframe)
             for _,v in pairs(vehicles) do
                 if v.PrimaryPart ~= nil and v.Seat:FindFirstChild("Player") and v.Seat.Player.Value == true and tostring(v.Seat.PlayerName.Value) == game:GetService("Players").LocalPlayer.Name then
                     if v.Name == "Camaro" then
-                        slidevehicle(v, cframe)
+                        if not teleportornot then
+                            slidevehicle(v, cframe)
+                        end
                         return
                     else
                         game:GetService("VirtualInputManager"):SendKeyEvent(true, "Space", false, game)
@@ -241,7 +243,7 @@ getgenv().teleport = function(cframe)
                         end
                     end
                     wait(0.3)
-                    if tostring(v.Seat.PlayerName.Value) == game:GetService("Players").LocalPlayer.Name then
+                    if not teleportornot and tostring(v.Seat.PlayerName.Value) == game:GetService("Players").LocalPlayer.Name then
                         game:GetService("ContextActionService"):BindAction("DisableInput", 
                         function() return Enum.ContextActionResult.Sink end,
                         false,
