@@ -84,10 +84,11 @@ getgenv().slide = function(cframe,...)
     cframe = cframe + Vector3.new(0,1,0)
     
     for i = 0,(cframe.p - root.Position).magnitude, 1 do
+        root.Parent.Humanoid.Sit = false
 
         move.MaxForce = Vector3.new(9e9,9e9,9e9)
         move.P = 3000
-        move.Velocity = (cframe.p - root.Position).unit * 140
+        move.Velocity = (cframe.p - root.Position).unit * 130
         
         for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
             pcall(function()
@@ -109,6 +110,10 @@ getgenv().slide = function(cframe,...)
     
     if options[1] ~= nil then
         root.Parent.Humanoid:SetStateEnabled(10, true)
+    end
+
+    if options[2] ~= nil then
+        wait((options[2] or tonumber(options[2])))
     end
 end
 
@@ -157,8 +162,12 @@ local function slidevehicle(vehicle, cframe)
             game:GetService("ContextActionService"):UnbindAction("DisableInput")
 
             game:GetService("VirtualInputManager"):SendKeyEvent(true, "Space", false, game)
+            
             wait()
+            
             game:GetService("VirtualInputManager"):SendKeyEvent(false, "Space", false, game)
+
+            wait(1)
 
             if (origin.p - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 500 then
                 wait(2)
