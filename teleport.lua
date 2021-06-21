@@ -243,12 +243,14 @@ getgenv().teleport = function(cframe, teleportornot)
                         end
                     end
                     wait(0.3)
-                    if not teleportornot and tostring(v.Seat.PlayerName.Value) == game:GetService("Players").LocalPlayer.Name then
-                        game:GetService("ContextActionService"):BindAction("DisableInput", 
-                        function() return Enum.ContextActionResult.Sink end,
-                        false,
-                        unpack(Enum.PlayerActions:GetEnumItems()))
-                        slidevehicle(v, cframe)
+                    if tostring(v.Seat.PlayerName.Value) == game:GetService("Players").LocalPlayer.Name then
+                        if not teleportornot then
+                            game:GetService("ContextActionService"):BindAction("DisableInput", 
+                            function() return Enum.ContextActionResult.Sink end,
+                            false,
+                            unpack(Enum.PlayerActions:GetEnumItems()))
+                            slidevehicle(v, cframe)
+                        end
                         break
                     end
                     wait(2)
