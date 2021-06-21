@@ -206,8 +206,6 @@ getgenv().teleport = function(cframe, teleportornot)
                     if v.Name == "Camaro" then
                         if not teleportornot then
                             slidevehicle(v, cframe)
-                        else
-                            return v
                         end
                         return
                     else
@@ -252,8 +250,6 @@ getgenv().teleport = function(cframe, teleportornot)
                             false,
                             unpack(Enum.PlayerActions:GetEnumItems()))
                             slidevehicle(v, cframe)
-                        else
-                            return v
                         end
                         break
                     end
@@ -266,5 +262,5 @@ getgenv().teleport = function(cframe, teleportornot)
             end)
         end
     end)
-    print(debug2)
+    if not debug1 then print(debug2) end
 end
