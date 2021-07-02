@@ -96,7 +96,7 @@ getgenv().slide = function(cframe,...)
             end)
         end
         
-        if (cframe.p - root.Position).magnitude < 3 then
+        if (cframe.p - root.Position).magnitude < 3 or game:GetService("Players").LocalPlayer.Character.Humanoid.Health < 3 then
             move:Destroy()
             for i2 = 1, 10 do
                 root.CFrame = cframe 
