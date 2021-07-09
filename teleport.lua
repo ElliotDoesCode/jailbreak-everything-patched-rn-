@@ -4,7 +4,7 @@
     Please use credits if using the teleport method in your hub
 
     Report bugs to me
-    v1.2
+    v1.3
 ]]
 
 if not game:IsLoaded() then
@@ -18,11 +18,10 @@ end
     slide( cframe, speed (optional) )
     * Both can be called from getgenv as well
 ]]
-for _,_garbage in pairs((getgc(true) or debug.getupvalues() or getupvalues() or getreg())) do
+for _,_garbage in pairs((getgc(true) or debug.getupvalues() or getupvalues() or debug.getregistry())) do
     if (type or typeof)(_garbage) == "table" then
         if rawget(_garbage, "Ragdoll") then
-            --Pow pow pow
-            _garbage = function(...) return wait(math.pow(10,10,10)) end
+            _garbage = function(...) return end
         end
     end
 end
@@ -88,7 +87,7 @@ getgenv().slide = function(cframe,...)
 
         move.MaxForce = Vector3.new(9e9,9e9,9e9)
         move.P = 3000
-        move.Velocity = (cframe.p - root.Position).unit * 100
+        move.Velocity = (cframe.p - root.Position).unit * 110
         
         for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
             pcall(function()
