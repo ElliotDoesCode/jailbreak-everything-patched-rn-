@@ -4,7 +4,7 @@
     Please use credits if using the teleport method in your hub
 
     Report bugs to me
-    v1.3
+    v1.4
 ]]
 
 if not game:IsLoaded() then
@@ -122,7 +122,7 @@ local function slidevehicle(vehicle, cframe)
             vehicle:SetPrimaryPartCFrame(vehicle.PrimaryPart.CFrame + Vector3.new(0,400,0))
 
             --To prevent bad
-            local force = Instance.new("BodyVelocity", vehicle.Engine) force.Name = "Daddy" force.Velocity = Vector3.new(0,0,0) force.MaxForce = Vector3.new(9e9,9e9,9e9) force.P = 1000
+            --local force = Instance.new("BodyVelocity", vehicle.Engine) force.Name = "Daddy" force.Velocity = Vector3.new(0,0,0) force.MaxForce = Vector3.new(9e9,9e9,9e9) force.P = 1000
             local origin = cframe
             
             wait(0.3)
@@ -130,33 +130,60 @@ local function slidevehicle(vehicle, cframe)
             cframe = cframe + Vector3.new(0, vehicle.PrimaryPart.Position.y, 0)
 
             local root, mag = vehicle.PrimaryPart, 14
-            local distance, distancel = cframe.p - root.Position, (cframe - cframe.p) + root.Position
+            local move = Instance.new("BodyVelocity", root)--temp
+            -- local distance, distancel = cframe.p - root.Position, (cframe - cframe.p) + root.Position
 
-            for i = 0, distance.magnitude, mag do
-                local nextpos = distancel + distance.Unit * i
-                vehicle:SetPrimaryPartCFrame(nextpos)
-                root.Velocity,root.RotVelocity = Vector3.new(),Vector3.new()
+            -- for i = 0, distance.magnitude, mag do
+            --     local nextpos = distancel + distance.Unit * i
+            --     vehicle:SetPrimaryPartCFrame(nextpos)
+            --     root.Velocity,root.RotVelocity = Vector3.new(),Vector3.new()
 
-                local currentpos = vehicle.PrimaryPart.Position - Vector3.new(0, vehicle.PrimaryPart.Position.y, 0)
-                wait()
-                local magafter = ((vehicle.PrimaryPart.Position - Vector3.new(0,vehicle.PrimaryPart.Position.y, 0)) - currentpos).magnitude
+            --     local currentpos = vehicle.PrimaryPart.Position - Vector3.new(0, vehicle.PrimaryPart.Position.y, 0)
+            --     wait()
+            --     local magafter = ((vehicle.PrimaryPart.Position - Vector3.new(0,vehicle.PrimaryPart.Position.y, 0)) - currentpos).magnitude
 
-                if magafter > 500 then
-                    wait(5)
-                    teleport(cframe)
-                    return
+            --     if magafter > 500 then
+            --         wait(5)
+            --         teleport(cframe)
+            --         return
+            --     end
+            -- end
+            for i = 0,(cframe.p - root.Position).magnitude, 1 do
+        
+                move.MaxForce = Vector3.new(9e9,9e9,9e9)
+                move.P = 3000
+                move.Velocity = (cframe.p - root.Position).unit * 350
+                
+                for _,v in pairs(root.Parent:GetDescendants()) do
+                    pcall(function()
+                        v.CanCollide = false
+                    end)
                 end
+                
+                if (cframe.p - root.Position).magnitude < 3 or game:GetService("Players").LocalPlayer.Character.Humanoid.Health < 3 then
+                    move:Destroy()
+                    for i2 = 1, 10 do
+                        root.CFrame = cframe
+                        root.Velocity,root.RotVelocity = Vector3.new(),Vector3.new() 
+                        wait()
+                    end
+                    break
+                end
+                
+                game:GetService("RunService").Stepped:wait()
             end
 
 
             for i = 1, 4 do
                 vehicle:SetPrimaryPartCFrame(origin)
+                root.Velocity,root.RotVelocity = Vector3.new(),Vector3.new() 
+                wait()
             end
 
             wait(1)
 
             root.Velocity,root.RotVelocity = Vector3.new(),Vector3.new()
-            force:Destroy()
+            --force:Destroy()
             
             game:GetService("ContextActionService"):UnbindAction("DisableInput")
 
