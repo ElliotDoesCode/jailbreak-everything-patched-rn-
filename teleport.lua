@@ -1,4 +1,7 @@
 --[[
+    PATCHED
+    --FOR NOW
+
     Made by IAteYourDog#4864
     I don't give permision to re-release or re-use
     Please use credits if using the teleport method in your hub
